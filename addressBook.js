@@ -1,20 +1,5 @@
 class Contact {
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email) {
-        let namePattern = /^[A-Z][a-zA-Z]{2,}$/;
-        let addressPattern = /^[a-zA-Z0-9\s]{4,}$/;
-        let zipPattern = /^[0-9]{5,6}$/;
-        let phonePattern = /^[0-9]{10}$/;
-        let emailPattern = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
-
-        if (!namePattern.test(firstName)) throw "Invalid First Name";
-        if (!namePattern.test(lastName)) throw "Invalid Last Name";
-        if (!addressPattern.test(address)) throw "Invalid Address";
-        if (!addressPattern.test(city)) throw "Invalid City";
-        if (!addressPattern.test(state)) throw "Invalid State";
-        if (!zipPattern.test(zip)) throw "Invalid Zip Code";
-        if (!phonePattern.test(phoneNumber)) throw "Invalid Phone Number";
-        if (!emailPattern.test(email)) throw "Invalid Email";
-
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -26,30 +11,49 @@ class Contact {
     }
 
     toString() {
-        return `Name: ${this.firstName} ${this.lastName}, Address: ${this.address}, City: ${this.city}, State: ${this.state}, Zip: ${this.zip}, Phone: ${this.phoneNumber}, Email: ${this.email}`;
+        return `Name: ${this.firstName} ${this.lastName}, Address: ${this.address}, ${this.city}, ${this.state}, ${this.zip}, Phone: ${this.phoneNumber}, Email: ${this.email}`;
     }
 }
 
-// ✅ Address Book array
-let addressBook = [];
+class AddressBook {
+    constructor() {
+        this.contacts = [];
+    }
 
-// ✅ Function to add contact in address book
-function addContact(contact) {
-    addressBook.push(contact);
+    // UC2: Add Contact
+    addContact(contact) {
+        this.contacts.push(contact);
+    }
+
+    // 👉 UC3: Edit Existing Contact by Name
+    editContact(name, updatedContact) {
+        let index = this.contacts.findIndex(contact => contact.firstName === name);
+        if (index !== -1) {
+            this.contacts[index] = updatedContact;
+            console.log(`✅ Contact updated successfully!`);
+        } else {
+            console.log(`❌ Contact not found!`);
+        }
+    }
+
+    displayContacts() {
+        this.contacts.forEach(contact => console.log(contact.toString()));
+    }
 }
 
-// ✅ Test Case
-try {
-    let contact1 = new Contact("Chirag", "Sharma", "GLA University", "Mathura", "UP", "281406", "9876543210", "chirag@gmail.com");
-    let contact2 = new Contact("Rohan", "Verma", "Sector 15", "Noida", "UP", "201301", "9234567890", "rohan@gmail.com");
+// ✅ Test Code
+let addressBook = new AddressBook();
+let contact1 = new Contact('John', 'Doe', '123 Street', 'CityA', 'StateA', '123456', '1234567890', 'john@example.com');
+let contact2 = new Contact('Jane', 'Smith', '456 Lane', 'CityB', 'StateB', '654321', '0987654321', 'jane@example.com');
 
-    // Contacts ko add kar rahe hain
-    addContact(contact1);
-    addContact(contact2);
+addressBook.addContact(contact1);
+addressBook.addContact(contact2);
 
-    console.log("\nContacts in Address Book:");
-    addressBook.forEach(contact => console.log(contact.toString()));
+console.log("\n📌 All Contacts:");
+addressBook.displayContacts();
 
-} catch (error) {
-    console.error(error);
-}
+let updatedContact = new Contact('John', 'Doe', '789 Avenue', 'CityC', 'StateC', '789123', '1112223333', 'john@newmail.com');
+addressBook.editContact('John', updatedContact);
+
+console.log("\n📌 Updated Contacts:");
+addressBook.displayContacts();
