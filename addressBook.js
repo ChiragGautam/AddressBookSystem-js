@@ -1,13 +1,11 @@
 class Contact {
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email) {
-        // Regex patterns
         let namePattern = /^[A-Z][a-zA-Z]{2,}$/;
         let addressPattern = /^[a-zA-Z0-9\s]{4,}$/;
         let zipPattern = /^[0-9]{5,6}$/;
         let phonePattern = /^[0-9]{10}$/;
         let emailPattern = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
 
-        // Validation using Regex
         if (!namePattern.test(firstName)) throw "Invalid First Name";
         if (!namePattern.test(lastName)) throw "Invalid Last Name";
         if (!addressPattern.test(address)) throw "Invalid Address";
@@ -17,7 +15,6 @@ class Contact {
         if (!phonePattern.test(phoneNumber)) throw "Invalid Phone Number";
         if (!emailPattern.test(email)) throw "Invalid Email";
 
-        // Assigning values if validation is successful
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -28,16 +25,31 @@ class Contact {
         this.email = email;
     }
 
-    // toString() method for displaying the contact
     toString() {
         return `Name: ${this.firstName} ${this.lastName}, Address: ${this.address}, City: ${this.city}, State: ${this.state}, Zip: ${this.zip}, Phone: ${this.phoneNumber}, Email: ${this.email}`;
     }
 }
 
-// Test Case
+// ✅ Address Book array
+let addressBook = [];
+
+// ✅ Function to add contact in address book
+function addContact(contact) {
+    addressBook.push(contact);
+}
+
+// ✅ Test Case
 try {
-    let contact = new Contact("Chirag", "Sharma", "GLA University", "Mathura", "UP", "281406", "9876543210", "chirag@gmail.com");
-    console.log(contact.toString());
+    let contact1 = new Contact("Chirag", "Sharma", "GLA University", "Mathura", "UP", "281406", "9876543210", "chirag@gmail.com");
+    let contact2 = new Contact("Rohan", "Verma", "Sector 15", "Noida", "UP", "201301", "9234567890", "rohan@gmail.com");
+
+    // Contacts ko add kar rahe hain
+    addContact(contact1);
+    addContact(contact2);
+
+    console.log("\nContacts in Address Book:");
+    addressBook.forEach(contact => console.log(contact.toString()));
+
 } catch (error) {
     console.error(error);
 }
