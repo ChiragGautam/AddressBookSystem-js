@@ -36,7 +36,7 @@ class AddressBook {
         }
     }
 
-    // 👉 UC4: Delete Contact by Name
+    // UC4: Delete Contact by Name
     deleteContact(name) {
         let index = this.contacts.findIndex(contact => contact.firstName === name);
         if (index !== -1) {
@@ -45,6 +45,13 @@ class AddressBook {
         } else {
             console.log(`❌ Contact not found!`);
         }
+    }
+
+    // 👉 UC5: Find Total Number of Contacts
+    getContactCount() {
+        let totalCount = this.contacts.reduce((count) => count + 1, 0);
+        console.log(`📌 Total Number of Contacts: ${totalCount}`);
+        return totalCount;
     }
 
     displayContacts() {
@@ -63,7 +70,4 @@ addressBook.addContact(contact2);
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
 
-addressBook.deleteContact('John'); // ✅ John ko delete kar raha hai
-
-console.log("\n📌 Contacts After Deletion:");
-addressBook.displayContacts();
+addressBook.getContactCount(); // ✅ Total contacts count show karega
