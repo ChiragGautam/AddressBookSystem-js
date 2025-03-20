@@ -71,7 +71,7 @@ class AddressBook {
         }
     }
 
-    // 👉 UC8: View Persons by City or State
+    // UC8: View Persons by City or State
     viewByCityOrState(city, state) {
         console.log(`\n📌 Persons in City: ${city}`);
         this.contacts.filter(contact => contact.city === city)
@@ -80,6 +80,20 @@ class AddressBook {
         console.log(`\n📌 Persons in State: ${state}`);
         this.contacts.filter(contact => contact.state === state)
             .forEach(contact => console.log(contact.toString()));
+    }
+
+    // 👉 UC9: Get Number of Contact Persons by City or State
+    countByCityOrState(city, state) {
+        let cityCount = this.contacts
+            .filter(contact => contact.city === city)
+            .reduce((count) => count + 1, 0);
+
+        let stateCount = this.contacts
+            .filter(contact => contact.state === state)
+            .reduce((count) => count + 1, 0);
+
+        console.log(`📌 Total Contacts in City (${city}): ${cityCount}`);
+        console.log(`📌 Total Contacts in State (${state}): ${stateCount}`);
     }
 
     displayContacts() {
@@ -100,5 +114,5 @@ addressBook.addContact(contact3);
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
 
-console.log("\n🔎 Viewing contacts in CityA and StateB:");
-addressBook.viewByCityOrState('CityA', 'StateB'); // ✅ View karega city/state ke basis pe
+console.log("\n🔎 Counting contacts by City and State:");
+addressBook.countByCityOrState('CityA', 'StateB'); // ✅ City or State ke basis pe count karega
