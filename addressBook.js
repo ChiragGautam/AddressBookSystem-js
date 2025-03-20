@@ -25,12 +25,23 @@ class AddressBook {
         this.contacts.push(contact);
     }
 
-    // 👉 UC3: Edit Existing Contact by Name
+    // UC3: Edit Contact by Name
     editContact(name, updatedContact) {
         let index = this.contacts.findIndex(contact => contact.firstName === name);
         if (index !== -1) {
             this.contacts[index] = updatedContact;
             console.log(`✅ Contact updated successfully!`);
+        } else {
+            console.log(`❌ Contact not found!`);
+        }
+    }
+
+    // 👉 UC4: Delete Contact by Name
+    deleteContact(name) {
+        let index = this.contacts.findIndex(contact => contact.firstName === name);
+        if (index !== -1) {
+            this.contacts.splice(index, 1);
+            console.log(`✅ Contact deleted successfully!`);
         } else {
             console.log(`❌ Contact not found!`);
         }
@@ -52,8 +63,7 @@ addressBook.addContact(contact2);
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
 
-let updatedContact = new Contact('John', 'Doe', '789 Avenue', 'CityC', 'StateC', '789123', '1112223333', 'john@newmail.com');
-addressBook.editContact('John', updatedContact);
+addressBook.deleteContact('John'); // ✅ John ko delete kar raha hai
 
-console.log("\n📌 Updated Contacts:");
+console.log("\n📌 Contacts After Deletion:");
 addressBook.displayContacts();
