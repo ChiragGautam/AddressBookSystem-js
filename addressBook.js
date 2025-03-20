@@ -20,9 +20,15 @@ class AddressBook {
         this.contacts = [];
     }
 
-    // UC2: Add Contact
+    // 👉 UC6: Prevent Duplicate Entry
     addContact(contact) {
-        this.contacts.push(contact);
+        let isDuplicate = this.contacts.filter(c => c.firstName === contact.firstName && c.lastName === contact.lastName).length > 0;
+        if (isDuplicate) {
+            console.log(`❌ Duplicate Contact! Cannot add ${contact.firstName} ${contact.lastName}`);
+        } else {
+            this.contacts.push(contact);
+            console.log(`✅ Contact added successfully!`);
+        }
     }
 
     // UC3: Edit Contact by Name
@@ -47,7 +53,7 @@ class AddressBook {
         }
     }
 
-    // 👉 UC5: Find Total Number of Contacts
+    // UC5: Get Total Number of Contacts
     getContactCount() {
         let totalCount = this.contacts.reduce((count) => count + 1, 0);
         console.log(`📌 Total Number of Contacts: ${totalCount}`);
@@ -63,9 +69,11 @@ class AddressBook {
 let addressBook = new AddressBook();
 let contact1 = new Contact('John', 'Doe', '123 Street', 'CityA', 'StateA', '123456', '1234567890', 'john@example.com');
 let contact2 = new Contact('Jane', 'Smith', '456 Lane', 'CityB', 'StateB', '654321', '0987654321', 'jane@example.com');
+let contact3 = new Contact('John', 'Doe', '123 Street', 'CityA', 'StateA', '123456', '1234567890', 'john@example.com'); // Duplicate
 
 addressBook.addContact(contact1);
 addressBook.addContact(contact2);
+addressBook.addContact(contact3); // ✅ Duplicate entry error milega
 
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
