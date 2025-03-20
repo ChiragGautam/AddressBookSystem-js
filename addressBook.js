@@ -20,7 +20,7 @@ class AddressBook {
         this.contacts = [];
     }
 
-    // 👉 UC6: Prevent Duplicate Entry
+    // UC6: Prevent Duplicate Entry
     addContact(contact) {
         let isDuplicate = this.contacts.filter(c => c.firstName === contact.firstName && c.lastName === contact.lastName).length > 0;
         if (isDuplicate) {
@@ -82,7 +82,7 @@ class AddressBook {
             .forEach(contact => console.log(contact.toString()));
     }
 
-    // 👉 UC9: Get Number of Contact Persons by City or State
+    // UC9: Get Number of Contact Persons by City or State
     countByCityOrState(city, state) {
         let cityCount = this.contacts
             .filter(contact => contact.city === city)
@@ -94,6 +94,19 @@ class AddressBook {
 
         console.log(`📌 Total Contacts in City (${city}): ${cityCount}`);
         console.log(`📌 Total Contacts in State (${state}): ${stateCount}`);
+    }
+
+    // 👉 **UC10: Sort the Entries Alphabetically by Person's Name**
+    sortContactsByName() {
+        this.contacts.sort((a, b) => {
+            let nameA = a.firstName.toLowerCase();
+            let nameB = b.firstName.toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        });
+        console.log(`✅ Contacts sorted alphabetically by name!`);
+        this.displayContacts();
     }
 
     displayContacts() {
@@ -114,5 +127,5 @@ addressBook.addContact(contact3);
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
 
-console.log("\n🔎 Counting contacts by City and State:");
-addressBook.countByCityOrState('CityA', 'StateB'); // ✅ City or State ke basis pe count karega
+console.log("\n🔎 Sorting contacts alphabetically by name:");
+addressBook.sortContactsByName(); // ✅ Alphabetically sort karega
