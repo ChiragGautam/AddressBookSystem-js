@@ -60,7 +60,7 @@ class AddressBook {
         return totalCount;
     }
 
-    // 👉 UC7: Search Person by City or State
+    // UC7: Search Person by City or State
     searchByCityOrState(city, state) {
         let searchResults = this.contacts.filter(contact => contact.city === city || contact.state === state);
         if (searchResults.length > 0) {
@@ -69,6 +69,17 @@ class AddressBook {
         } else {
             console.log(`❌ No contact found in City: ${city} or State: ${state}`);
         }
+    }
+
+    // 👉 UC8: View Persons by City or State
+    viewByCityOrState(city, state) {
+        console.log(`\n📌 Persons in City: ${city}`);
+        this.contacts.filter(contact => contact.city === city)
+            .forEach(contact => console.log(contact.toString()));
+
+        console.log(`\n📌 Persons in State: ${state}`);
+        this.contacts.filter(contact => contact.state === state)
+            .forEach(contact => console.log(contact.toString()));
     }
 
     displayContacts() {
@@ -89,5 +100,5 @@ addressBook.addContact(contact3);
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
 
-console.log("\n🔎 Searching contacts in CityA or StateB:");
-addressBook.searchByCityOrState('CityA', 'StateB'); // ✅ Search by City/State karega
+console.log("\n🔎 Viewing contacts in CityA and StateB:");
+addressBook.viewByCityOrState('CityA', 'StateB'); // ✅ View karega city/state ke basis pe
