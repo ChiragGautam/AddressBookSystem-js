@@ -60,6 +60,17 @@ class AddressBook {
         return totalCount;
     }
 
+    // 👉 UC7: Search Person by City or State
+    searchByCityOrState(city, state) {
+        let searchResults = this.contacts.filter(contact => contact.city === city || contact.state === state);
+        if (searchResults.length > 0) {
+            console.log(`✅ Found ${searchResults.length} contact(s) in City: ${city} or State: ${state}`);
+            searchResults.forEach(contact => console.log(contact.toString()));
+        } else {
+            console.log(`❌ No contact found in City: ${city} or State: ${state}`);
+        }
+    }
+
     displayContacts() {
         this.contacts.forEach(contact => console.log(contact.toString()));
     }
@@ -69,13 +80,14 @@ class AddressBook {
 let addressBook = new AddressBook();
 let contact1 = new Contact('John', 'Doe', '123 Street', 'CityA', 'StateA', '123456', '1234567890', 'john@example.com');
 let contact2 = new Contact('Jane', 'Smith', '456 Lane', 'CityB', 'StateB', '654321', '0987654321', 'jane@example.com');
-let contact3 = new Contact('John', 'Doe', '123 Street', 'CityA', 'StateA', '123456', '1234567890', 'john@example.com'); // Duplicate
+let contact3 = new Contact('Jake', 'Paul', '789 Road', 'CityA', 'StateA', '123456', '1234567890', 'jake@example.com');
 
 addressBook.addContact(contact1);
 addressBook.addContact(contact2);
-addressBook.addContact(contact3); // ✅ Duplicate entry error milega
+addressBook.addContact(contact3);
 
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
 
-addressBook.getContactCount(); // ✅ Total contacts count show karega
+console.log("\n🔎 Searching contacts in CityA or StateB:");
+addressBook.searchByCityOrState('CityA', 'StateB'); // ✅ Search by City/State karega
