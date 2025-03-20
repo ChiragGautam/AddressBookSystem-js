@@ -31,72 +31,7 @@ class AddressBook {
         }
     }
 
-    // UC3: Edit Contact by Name
-    editContact(name, updatedContact) {
-        let index = this.contacts.findIndex(contact => contact.firstName === name);
-        if (index !== -1) {
-            this.contacts[index] = updatedContact;
-            console.log(`✅ Contact updated successfully!`);
-        } else {
-            console.log(`❌ Contact not found!`);
-        }
-    }
-
-    // UC4: Delete Contact by Name
-    deleteContact(name) {
-        let index = this.contacts.findIndex(contact => contact.firstName === name);
-        if (index !== -1) {
-            this.contacts.splice(index, 1);
-            console.log(`✅ Contact deleted successfully!`);
-        } else {
-            console.log(`❌ Contact not found!`);
-        }
-    }
-
-    // UC5: Get Total Number of Contacts
-    getContactCount() {
-        let totalCount = this.contacts.reduce((count) => count + 1, 0);
-        console.log(`📌 Total Number of Contacts: ${totalCount}`);
-        return totalCount;
-    }
-
-    // UC7: Search Person by City or State
-    searchByCityOrState(city, state) {
-        let searchResults = this.contacts.filter(contact => contact.city === city || contact.state === state);
-        if (searchResults.length > 0) {
-            console.log(`✅ Found ${searchResults.length} contact(s) in City: ${city} or State: ${state}`);
-            searchResults.forEach(contact => console.log(contact.toString()));
-        } else {
-            console.log(`❌ No contact found in City: ${city} or State: ${state}`);
-        }
-    }
-
-    // UC8: View Persons by City or State
-    viewByCityOrState(city, state) {
-        console.log(`\n📌 Persons in City: ${city}`);
-        this.contacts.filter(contact => contact.city === city)
-            .forEach(contact => console.log(contact.toString()));
-
-        console.log(`\n📌 Persons in State: ${state}`);
-        this.contacts.filter(contact => contact.state === state)
-            .forEach(contact => console.log(contact.toString()));
-    }
-
-    // UC9: Get Number of Contact Persons by City or State
-    countByCityOrState(city, state) {
-        let cityCount = this.contacts
-            .filter(contact => contact.city === city)
-            .reduce((count) => count + 1, 0);
-
-        let stateCount = this.contacts
-            .filter(contact => contact.state === state)
-            .reduce((count) => count + 1, 0);
-
-        console.log(`📌 Total Contacts in City (${city}): ${cityCount}`);
-        console.log(`📌 Total Contacts in State (${state}): ${stateCount}`);
-    }
-
-    // 👉 **UC10: Sort the Entries Alphabetically by Person's Name**
+    // UC10: Sort Contacts by Name
     sortContactsByName() {
         this.contacts.sort((a, b) => {
             let nameA = a.firstName.toLowerCase();
@@ -109,6 +44,25 @@ class AddressBook {
         this.displayContacts();
     }
 
+    // 👉 **UC11: Sort by City, State, or Zip**
+    sortContactsByCity() {
+        this.contacts.sort((a, b) => a.city.localeCompare(b.city));
+        console.log(`✅ Contacts sorted alphabetically by city!`);
+        this.displayContacts();
+    }
+
+    sortContactsByState() {
+        this.contacts.sort((a, b) => a.state.localeCompare(b.state));
+        console.log(`✅ Contacts sorted alphabetically by state!`);
+        this.displayContacts();
+    }
+
+    sortContactsByZip() {
+        this.contacts.sort((a, b) => a.zip - b.zip);
+        console.log(`✅ Contacts sorted by zip code!`);
+        this.displayContacts();
+    }
+
     displayContacts() {
         this.contacts.forEach(contact => console.log(contact.toString()));
     }
@@ -118,7 +72,7 @@ class AddressBook {
 let addressBook = new AddressBook();
 let contact1 = new Contact('John', 'Doe', '123 Street', 'CityA', 'StateA', '123456', '1234567890', 'john@example.com');
 let contact2 = new Contact('Jane', 'Smith', '456 Lane', 'CityB', 'StateB', '654321', '0987654321', 'jane@example.com');
-let contact3 = new Contact('Jake', 'Paul', '789 Road', 'CityA', 'StateA', '123456', '1234567890', 'jake@example.com');
+let contact3 = new Contact('Jake', 'Paul', '789 Road', 'CityA', 'StateA', '123457', '1234567890', 'jake@example.com');
 
 addressBook.addContact(contact1);
 addressBook.addContact(contact2);
@@ -127,5 +81,11 @@ addressBook.addContact(contact3);
 console.log("\n📌 All Contacts:");
 addressBook.displayContacts();
 
-console.log("\n🔎 Sorting contacts alphabetically by name:");
-addressBook.sortContactsByName(); // ✅ Alphabetically sort karega
+console.log("\n🔎 Sorting contacts by City:");
+addressBook.sortContactsByCity();
+
+console.log("\n🔎 Sorting contacts by State:");
+addressBook.sortContactsByState();
+
+console.log("\n🔎 Sorting contacts by Zip:");
+addressBook.sortContactsByZip();
